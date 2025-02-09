@@ -19,6 +19,11 @@ namespace VECTOR
         double mag;
         double ang;
         Mode mode;
+        // private methods for setting values
+        void set_mag();
+        void set_ang();
+        void set_x();
+        void set_y();
 
     public:
         Vector();
