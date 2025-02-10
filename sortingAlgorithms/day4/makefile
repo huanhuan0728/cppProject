@@ -1,7 +1,7 @@
 # 定义编译器
 CXX = clang++
 # 定义编译选项
-CXXFLAGS = -Wall -g
+CXXFLAGS = -std=c++17 -Wall
 # 目标可执行文件
 TARGET1 = day4_program
 TARGET2 = heapSort_program

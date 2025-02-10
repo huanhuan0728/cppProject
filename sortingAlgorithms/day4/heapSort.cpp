@@ -7,13 +7,13 @@ using namespace std;
 void heapify(vector<int> &arr, int n, int root)
 {
     int largest = root;
-    int left = largest * 2;
-    int right = largest * 2 - 1;
+    int left = largest * 2 + 1;
+    int right = largest * 2 + 2;
 
-    if (arr[left] > arr[largest])
+    if (arr[left] > arr[largest] && left < n)
         largest = left;
 
-    if (arr[right] > arr[largest])
+    if (arr[right] > arr[largest] && right < n)
         largest = right;
 
     if (largest != root)
