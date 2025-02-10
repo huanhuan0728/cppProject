@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+
 using namespace std;
 
 void insertionSort(vector<int> &arr)
@@ -15,7 +16,6 @@ void insertionSort(vector<int> &arr)
             arr[j + 1] = arr[j];
             j--;
         }
-
         arr[j + 1] = key;
     }
 }
@@ -26,11 +26,11 @@ void shellSort(vector<int> &arr)
 
     for (int gap = n / 2; gap > 0; gap /= 2)
     {
-        for (int i = gap; i < n; i += gap)
+        for (int i = gap; i > 0; i++)
         {
-            int temp = arr[i];
             int j = i - 1;
-            while (j >= 0 && arr[j] > temp)
+            int temp = arr[i];
+            while (arr[j] > temp && j >= 0)
             {
                 arr[j + gap] = arr[j];
                 j -= gap;
