@@ -41,3 +41,24 @@ void heapSort(vector<int> &arr)
         heapify(arr, i, 0);
     }
 }
+
+void printArray(vector<int> &arr)
+{
+    for (int num : arr)
+        cout << num << " ";
+    cout << endl;
+}
+
+// 测试主函数
+int main()
+{
+    vector<int> arr = {12, 11, 13, 5, 6, 7};
+    cout << "原始数组: ";
+    printArray(arr);
+
+    heapSort(arr);
+
+    cout << "堆排序后: ";
+    printArray(arr);
+    return 0;
+}
