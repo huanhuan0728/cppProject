@@ -178,7 +178,6 @@ void showMenu()
     cout << "请选择操作（输入数字）：";
 }
 
-// 主函数：菜单驱动
 int main()
 {
     AddressBook ab;
