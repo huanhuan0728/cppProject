@@ -5,7 +5,6 @@ struct Node
     int data;
     Node *next;
     Node *prev;
-    Node *next;
     Node(int val) : data(val), next(nullptr), prev(nullptr) {}
 };
 
@@ -137,7 +136,7 @@ void DoublyLinkedList::pop_front()
 
 void DoublyLinkedList::pop_back()
 {
-    if (!head)
+    if (!tail)
     {
         return;
     }
@@ -152,6 +151,7 @@ void DoublyLinkedList::pop_back()
     {
         head = nullptr;
     }
+    delete temp;
 }
 
 void DoublyLinkedList::remove(int val)
