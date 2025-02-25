@@ -225,7 +225,7 @@ int main()
             if (index != -1)
             {
                 cout << "联系人已找到，详情如下：" << endl;
-                ab.modifyContact(name); // 注意：此处调用 modifyContact 后会修改数据，如果仅想查看，请自行修改代码
+                ab.modifyContact(name); // 显示联系人信息
             }
             else
             {
