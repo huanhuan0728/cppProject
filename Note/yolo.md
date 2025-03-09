@@ -1,7 +1,7 @@
 # yolov8 添加注意力机制模块，SEAttention
 
 运行环境：autodl 的 linux
-![alt text](image-9.png)
+![alt text](./image/image-9.png)
 
 ## SEAttention 代码
 
@@ -70,7 +70,7 @@ class SEAttention(nn.Module):
 
    ```
 
-   ![alt text](image-10.png)
+   ![alt text](./image/image-10.png)
 
 2. 在 conv.py 添加 SEAttention
 
