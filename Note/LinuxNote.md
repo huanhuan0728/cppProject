@@ -254,3 +254,48 @@
     > newfile.txt       # 创建空文件newfile.txt
     echo "内容“ > file  # 将内容写进文件（覆盖原有内容）
     ```
+
+## 创建 conda 环境
+
+    1.基本命令
+        ```bash
+        conda create --name 环境名
+        ```
+
+        指定python版本
+
+        ```bash
+        conda create --name 环境名 python=版本号
+        conda create --name myenv python=3.9
+        ```
+
+    2. 创建环境时直接安装包
+        ```bash
+        conda create --name 环境名 python=版本号 包1 包2 ...
+        ```
+
+    3. 激活环境
+        ```bash
+        conda activate 环境名
+
+        # 退出环境
+        conda deactivate
+
+        # 查看所有环境
+        conda env list
+
+        # 删除环境
+        conda env remove --name 环境名
+
+        # 克隆环境
+        conda create --name 新环境名 --clone 原环境名
+        ```
+
+    4. 检查环境
+        ```bash
+        # 检查python环境
+        python --version
+
+        # 查看已经安装的包
+        conda list
+        ```
