@@ -206,3 +206,8 @@ int *a = (int*)0x1000;  // a 指向内存地址 0x1000
 ### malloc/free 与 new/delete 的区别是什么
 
 ### 内存泄漏的检查工具 valgrind
+
+##
+
+![alt text](image.png)
+注释 ** // Node(int k) :key(k),** 的时候，下面的 ~AvlTree0();不会报错，为什么？
