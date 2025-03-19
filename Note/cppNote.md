@@ -211,3 +211,15 @@ int *a = (int*)0x1000;  // a 指向内存地址 0x1000
 
 ![alt text](image.png)
 注释 ** // Node(int k) :key(k),** 的时候，下面的 ~AvlTree0();不会报错，为什么？
+
+## C++中 struct 和 class 有什么区别？
+
+1. struct 的功能被拓展了，几乎和 class 一样
+2. struct 默认访问权限是 public，而 class 是 private
+
+## 对象的创建
+
+C++中，对象的创建会调用一个特殊的函数：构造函数
+作用：初始化数据成员
+形式：
+没有返回值，与类名相同，再加上参数列表
