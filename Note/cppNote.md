@@ -211,3 +211,6 @@ int *a = (int*)0x1000;  // a 指向内存地址 0x1000
 
 ![alt text](image.png)
 注释 ** // Node(int k) :key(k),** 的时候，下面的 ~AvlTree0();不会报错，为什么？
+
+# 标准输入流
+
