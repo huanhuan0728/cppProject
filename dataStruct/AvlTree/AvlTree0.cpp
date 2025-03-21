@@ -2,10 +2,9 @@
 
 using namespace std;
 
-class AvlTree0
+class AVLTree0
 {
 private:
-    /* data */
     struct Node
     {
         /* data */
@@ -13,18 +12,22 @@ private:
         int height;
         Node *left;
         Node *right;
-        Node(int k) : key(k), height(1), left(nullptr), right(nullptr);
+        Node(int k) : key(k), height(0), left(nullptr), right(nullptr) {}
     };
 
-    // public:
-    //     AvlTree0(/* args */);
-    // ~AvlTree0();
+    Node *root;
+
+    int getHeight(Node *node)
+    {
+        return node ? node->height : 0;
+    }
+
+    int getBalanceFactor(Node *node)
+    {
+        return node ? getHeight(node->left) - getHeight(node->right) : 0;
+    }
+
+    void upDateHeight(Node *node)
+    {
+        }
 };
-
-AvlTree0::AvlTree0(/* args */)
-{
-}
-
-AvlTree0::~AvlTree0()
-{
-}
