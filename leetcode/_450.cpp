@@ -9,16 +9,6 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
-struct TreeNode
-{
-    int val;
-    TreeNode *left;
-    TreeNode *right;
-    TreeNode() : val(0), left(nullptr), right(nullptr) {}
-    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-    TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
-};
-
 class Solution
 {
 public:
@@ -30,11 +20,11 @@ public:
         }
         if (key < root->val)
         {
-            deleteNode(root->left, key);
+            root->left = deleteNode(root->left, key);
         }
         else if (key > root->val)
         {
-            deleteNode(root->right, key);
+            root->right = deleteNode(root->right, key);
         }
         else
         // 找到节点
