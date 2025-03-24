@@ -6,7 +6,7 @@ int partition(vector<int> &arr, int left, int right)
 {
     int pivot = arr[right];
     int store_index = left - 1;
-    for (int i = 0; i < right; i++)
+    for (int i = left; i < right; i++)
     {
         if (arr[i] < pivot)
         {
