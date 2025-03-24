@@ -3,7 +3,7 @@
 class Solution
 {
 public:
-    bool isValid(string s)
+    bool isValid(std::string s)
     {
         std::stack<char> st;
         for (char c : s)
