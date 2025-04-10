@@ -1,3 +1,30 @@
+# 创建新分支
+
+```bash
+# 查看当前分支
+git branch
+
+# 查看是否有为提交的修改
+git status
+
+# 创建新分支
+git branch new
+
+# 切换到新分支
+git checkout new
+
+# 一步创建并切换
+git checkout -b new
+
+# 提交修改
+git add .
+git commit -m"描述修改内容"
+
+# 推送到远程分支
+git push origin main
+
+```
+
 # 下拉最新分支并且解决冲突并合并
 
 要从远程仓库拉取最新的分支，可以使用以下 Git 命令：
