@@ -85,6 +85,13 @@ git fetch --all
 
 # 合并
 
+```bash
+# 简单版
+git checkout main
+git pull origin main
+git merge new
+```
+
 1. **合并（merge）**  
    通过合并将远程的更改和本地的提交整合到一个新的合并提交中。  
    配置命令：
