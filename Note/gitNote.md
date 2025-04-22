@@ -61,31 +61,23 @@ git fetch --all
 1. **合并（merge）**  
    通过合并将远程的更改和本地的提交整合到一个新的合并提交中。  
    配置命令：
-
    ```bash
    git config pull.rebase false
    ```
-
    或者在命令行中直接执行：
-
    ```bash
    git pull --no-rebase origin main
    ```
-
 2. **变基（rebase）**  
    通过变基，将你的本地提交放到远程分支的最新提交之后，从而形成一条更直线的历史记录。  
    配置命令：
-
    ```bash
    git config pull.rebase true
    ```
-
    或者直接：
-
    ```bash
    git pull --rebase origin main
    ```
-
 3. **仅快进（fast-forward only）**  
    如果两边的提交可以快进合并，则合并，否则就报错。  
    配置命令：
