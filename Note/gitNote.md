@@ -126,3 +126,75 @@ git merge new
 你可以根据自己的工作流和团队协作约定来选择合适的方式。如果不确定，默认的合并方式（merge）通常是最简单的选择。如果你希望保持更简洁的提交历史，则可以选择变基（rebase）。
 
 这样做之后，下次执行 `git pull origin main` 时，Git 就会按照你配置的方式来处理分叉情况。
+
+# 一次合并的示例
+
+```bash
+(base) xuhuanlu@xuhuandeMacBook-Pro cppProject % git branch
+* leetcode
+  main
+  note
+(base) xuhuanlu@xuhuandeMacBook-Pro cppProject % git checkout main
+M       .vscode/settings.json
+Switched to branch 'main'
+Your branch is up to date with 'origin/main'.
+(base) xuhuanlu@xuhuandeMacBook-Pro cppProject % git pull origin
+Already up to date.
+# 这里报错是因为没有用提交本分支的修改
+(base) xuhuanlu@xuhuandeMacBook-Pro cppProject % git merge leetcode
+Auto-merging Note/gitNote.md
+Merge made by the 'ort' strategy.
+ Note/gitNote.md   |  8 --------
+ leetcode/_707.cpp | 89 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ leetcode/_977.py  | 16 ++++++++++++++++
+ 3 files changed, 105 insertions(+), 8 deletions(-)
+ create mode 100644 leetcode/_707.cpp
+ create mode 100644 leetcode/_977.py
+(base) xuhuanlu@xuhuandeMacBook-Pro cppProject % git push orgin main
+fatal: 'orgin' does not appear to be a git repository
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+(base) xuhuanlu@xuhuandeMacBook-Pro cppProject % git status
+On branch main
+Your branch is ahead of 'origin/main' by 4 commits.
+  (use "git push" to publish your local commits)
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   .vscode/settings.json
+
+no changes added to commit (use "git add" and/or "git commit -a")
+(base) xuhuanlu@xuhuandeMacBook-Pro cppProject % git add .
+(base) xuhuanlu@xuhuandeMacBook-Pro cppProject % git commit -m"合并了leetcode分支"
+[main 1bf39c4] 合并了leetcode分支
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+(base) xuhuanlu@xuhuandeMacBook-Pro cppProject % git push origin main
+Enumerating objects: 18, done.
+Counting objects: 100% (16/16), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (8/8), done.
+Writing objects: 100% (8/8), 878 bytes | 878.00 KiB/s, done.
+Total 8 (delta 6), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (6/6), completed with 5 local objects.
+To https://github.com/huanhuan0728/cppProject.git
+   3c71c6a..1bf39c4  main -> main
+```
+
+# 报错
+
+## error: Your local changes to the following files would be overwritten by checkout:
+
+```bash
+(base) xuhuanlu@xuhuandeMacBook-Pro cppProject % git checkout Note
+error: Your local changes to the following files would be overwritten by checkout:
+        Note/gitNote.md
+Please commit your changes or stash them before you switch branches.
+Aborting
+```
+
+这里报错是因为我在切换回 Note 分支前修改了 main 分支里的 gitNote.md 的内容，如果切换过去这些修改还没有提交到 main，会被覆盖。
+
+我应该先切换到 Note 分支，合并 main 分支，再写笔记，提交、合并到 main
