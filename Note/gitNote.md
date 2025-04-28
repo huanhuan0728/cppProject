@@ -198,3 +198,21 @@ Aborting
 这里报错是因为我在切换回 Note 分支前修改了 main 分支里的 gitNote.md 的内容，如果切换过去这些修改还没有提交到 main，会被覆盖。
 
 我应该先切换到 Note 分支，合并 main 分支，再写笔记，提交、合并到 main
+
+## fatal: unable to access 'https://git.ngsk.tech/ngskcloud/lift_runtime.git/': LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to git.ngsk.tech:443
+
+```
+git config --global --get http.proxy
+git config --global --get https.proxy
+
+```
+
+##
+
+没有瞎猜，我是按文档来的 😣
+
+**按文档**，安全回路断开（门打开），没有电流（`0mA`）的时候输出电压`OUTVOLTAGE`是`2.4-2.6`，下面图里也能看到。所以我一开始写的是`current≤0 and out_voltage <= 2.6`验证电流和电压在断开回路的时候值都在区间内。
+
+**实际上**，发现安全回路断开的时候，**电流不是马上降到 0**，会先将到 `0.2` 这样，然后再慢慢下降到 `0.1` 左右，电压大约 2.5。如果开门时间比较短，没等电流完全降到 0 门又关上了，**电流就始终会略大于 0**，就会**不反应门未关好**。所以我**门关好判断**里的 `current <= 0`才认为安全回路断开和**安全运行时安全回路是否断开**里`current > 0`认为安全回路连接是**不太准**的。要往上调到 `1.0`这样，当电流小于 1mA 的时候就认为已经断开了（对比安全回路连接的时候电流大概 8.8m A，电压是 3.16）。
+
+测了关门到位的时候，偶尔`关门到位 = 否`会检测不到，问题应该是出在这里。
