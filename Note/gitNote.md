@@ -1,3 +1,11 @@
+# 每次进行开发前必须的操作
+
+```bash
+# 获取远程的最新分支
+git checkout feat/edge_pure
+git pull
+```
+
 # 创建新分支
 
 ```bash
@@ -201,18 +209,35 @@ Aborting
 
 ## fatal: unable to access 'https://git.ngsk.tech/ngskcloud/lift_runtime.git/': LibreSSL SSL_connect: SSL_ERROR_SYSCALL in connection to git.ngsk.tech:443
 
-```
+这里是因为设置了代理，用下面的命令行取消就好
+
+```bash
 git config --global --get http.proxy
 git config --global --get https.proxy
-
 ```
 
-##
+## fatal: 'origin/feat/edge_pure_dev' is not a commit and a branch 'feat/edge_pure_dev' cannot be created from it
 
-没有瞎猜，我是按文档来的 😣
+```bash
+(base) xuhuanlu@xuhuandeMacBook-Pro lift_runtime % git checkout -b feat/edge_pure_dev origin/feat/edge_pure_dev
+fatal: 'origin/feat/edge_pure_dev' is not a commit and a branch 'feat/edge_pure_dev' cannot be created from it
+```
 
-**按文档**，安全回路断开（门打开），没有电流（`0mA`）的时候输出电压`OUTVOLTAGE`是`2.4-2.6`，下面图里也能看到。所以我一开始写的是`current≤0 and out_voltage <= 2.6`验证电流和电压在断开回路的时候值都在区间内。
+`fatal: 'origin/feat/edge_pure_dev' is not a commit：Git` 没有找到一个名为 origin/feat/edge_pure_dev 的远程分支或者提交。
+`and a branch 'feat/edge_pure_dev' cannot be created from it`：因此，无法从该远程分支创建本地分支。
 
-**实际上**，发现安全回路断开的时候，**电流不是马上降到 0**，会先将到 `0.2` 这样，然后再慢慢下降到 `0.1` 左右，电压大约 2.5。如果开门时间比较短，没等电流完全降到 0 门又关上了，**电流就始终会略大于 0**，就会**不反应门未关好**。所以我**门关好判断**里的 `current <= 0`才认为安全回路断开和**安全运行时安全回路是否断开**里`current > 0`认为安全回路连接是**不太准**的。要往上调到 `1.0`这样，当电流小于 1mA 的时候就认为已经断开了（对比安全回路连接的时候电流大概 8.8m A，电压是 3.16）。
+# 拉取远程仓库的新分支
 
-测了关门到位的时候，偶尔`关门到位 = 否`会检测不到，问题应该是出在这里。
+```bash
+# 确保远程分支都是最新的
+git fetch origin
+
+# 检查远程分支是否存在
+git git ls-remote origin
+
+# 手动抓取单个分支，并且建立跟踪分支
+git fetch origin feat/edge_pure_dev:refs/remotes/origin/feat/edge_pure_dev
+
+# 切换到本地同名分支
+git checkout feat/edge_pure_dev
+```
