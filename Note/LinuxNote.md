@@ -425,5 +425,5 @@ ssh -p 10005 orangepi@ngsk.tech
 # 密码
 ngsk0809
 
-tail -n 200 lift_runtime/runtime.log.1
+tail -n 200 lift_runtime/runtime.log
 ```
