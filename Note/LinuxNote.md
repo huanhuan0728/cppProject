@@ -416,3 +416,14 @@ python --version
 # 查看已经安装的包
 conda list
 ```
+
+## 登陆 orange π 的终端查看日志
+
+```bash
+ssh -p 10005 orangepi@ngsk.tech
+
+# 密码
+ngsk0809
+
+tail -n 200 lift_runtime/runtime.log
+```
