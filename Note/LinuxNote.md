@@ -427,3 +427,9 @@ ngsk0809
 
 tail -n 200 lift_runtime/runtime.log
 ```
+
+## 将日志从服务器拷贝到本地
+
+```bash
+scp -P 10005 orangepi@ngsk.tech:/home/orangepi/lift_runtime/runtime.log /Users/xuhuanlu/Desktop/nenggeProject/log/
+```
