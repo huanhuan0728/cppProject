@@ -432,4 +432,6 @@ tail -n 200 lift_runtime/runtime.log
 
 ```bash
 scp -P 10005 orangepi@ngsk.tech:/home/orangepi/lift_runtime/runtime.log /Users/xuhuanlu/Desktop/nenggeProject/log/
+
+scp -P 10005 orangepi@ngsk.tech:/home/orangepi/lift_runtime/runtime.log "/Users/xuhuanlu/Desktop/nenggeProject/log/runtime_$(date +%Y%m%d%H%M%S).log"
 ```
