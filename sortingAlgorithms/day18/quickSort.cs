@@ -19,8 +19,10 @@ class Program
             }
         }
         store_index++;
-
-
+        int temp = arr[store_index];
+        arr[store_index] = arr[right];
+        arr[right] = temp;
+        return store_index;
 
     }
 }
