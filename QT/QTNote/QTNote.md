@@ -10,3 +10,7 @@
 `bottomright()`
 `width()`
 `height()`
+
+## 
+
+用QMessageBox做的点击后的提示，比如“图片保存成功”或者“视频保存成功”
