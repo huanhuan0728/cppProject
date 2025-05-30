@@ -1,7 +1,8 @@
 #pragma once
 #include <atomic>
 #include <mutex>
-
+#include <cassert>
+#include <iostream>
 namespace lxh_memory_pool
 {
 #define MEMORY_POOL_NUM 64
@@ -20,6 +21,8 @@ namespace lxh_memory_pool
         MemoryPool(size_t BlockSize = 4096);
         ~MemoryPool();
 
+        void init(size_t);
+
         void *allocate();
         void deallocate(void *);
 
@@ -36,19 +39,19 @@ namespace lxh_memory_pool
         Slot *popFreeList();
 
     private:
-        int BlockSize_;                 // 内存块的大小
-        int SlotSize_;                  // 槽的大小
-        Slot *firstBlock_;              // 指向内存池管理的首个实际内存块
-        Slot *curSlot_;                 // 指向当前未被使用过的槽
-        std::atomic<Slot *> firstList_; // 指向当前空闲的槽（指被使用过后又释放的槽）
-        Slot *lastSlot_;                // 作为内存块中最好能够存放元素的位置标识
-        std::mutex mutexForBlock_;      // 保证多线程情况下避免不必要的重复开辟内存
+        int BlockSize_;                // 内存块的大小
+        int SlotSize_;                 // 槽的大小
+        Slot *firstBlock_;             // 指向内存池管理的首个实际内存块
+        Slot *curSlot_;                // 指向当前未被使用过的槽
+        std::atomic<Slot *> freeList_; // 指向当前空闲的槽（指被使用过后又释放的槽）
+        Slot *lastSlot_;               // 作为内存块中最好能够存放元素的位置标识
+        std::mutex mutexForBlock_;     // 保证多线程情况下避免不必要的重复开辟内存
     };
 
     /*
     管理内存分配的类，通过静态方法为不同大小内存块提供高效的分配和释放机制。
     */
-    class HashBuket
+    class HashBucket
     {
     public:
         static void initMemoryPool();
@@ -79,19 +82,21 @@ namespace lxh_memory_pool
             getMemoryPool(((size + 7) / SLOT_BASE_SIZE) - 1).deallocate(ptr);
         }
 
+        // 模版
         template <typename T, typename... Args>
+        // 友员函数，外部函数访问类的私有变量
         friend T *newElement(Args &&...args);
 
         template <typename T, typename... Args>
         friend void deleteElement(T *p);
     };
-
+    // TOLEARN
     template <typename T, typename... Args>
     T *newElement(Args &&...args)
     {
         T *p = nullptr;
         // 根据元素大小选择合适的内存池分配
-        if ((p = reinterpret_cast<T *>(HashBuket::useMemory(sizeof(T)))) != nullptr)
+        if ((p = reinterpret_cast<T *>(HashBucket::useMemory(sizeof(T)))) != nullptr)
             // 在分配的内存上构造对象
             new (p) T(std::forward<Args>(args)...);
 
@@ -106,7 +111,7 @@ namespace lxh_memory_pool
         {
             p->~T();
             // 内存回收
-            HashBuket::freeMemory(reinterpret_cast<void *>(p), sizeof(T));
+            HashBucket::freeMemory(reinterpret_cast<void *>(p), sizeof(T));
         }
     }
 
