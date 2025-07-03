@@ -4,7 +4,8 @@
         "complex": "cpp",
         "deque": "cpp",
         "stack": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "new": "cpp"
     },
     "cmake.sourceDirectory": "/Users/xuhuanlu/Desktop/cppProject/opencv/read_image"
 }

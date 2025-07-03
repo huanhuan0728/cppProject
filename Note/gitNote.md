@@ -241,3 +241,72 @@ git fetch origin feat/edge_pure_dev:refs/remotes/origin/feat/edge_pure_dev
 # 切换到本地同名分支
 git checkout feat/edge_pure_dev
 ```
+
+# git 提交规范
+
+- **`type` (类型)**: 表明提交的类别。常见的类型有：
+  - `feat`: A new feature (新功能)
+  - `fix`: A bug fix (修复 bug)
+  - `docs`: Documentation only changes (文档修改)
+  - `style`: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc) (代码格式修改，不影响代码逻辑)
+  - `refactor`: A code change that neither fixes a bug nor adds a feature (代码重构，既不是新功能也不是 bug 修复)
+  - `perf`: A code change that improves performance (性能优化)
+  - `test`: Adding missing tests or correcting existing tests (增加或修改测试)
+  - `build`: Changes that affect the build system or external dependencies (e.g. gulp, broccoli, npm) (影响构建系统或外部依赖的更改)
+  - `ci`: Changes to our CI configuration files and scripts (e.g. Travis, Circle, BrowserStack, SauceLabs) (CI 配置文件和脚本的更改)
+  - `chore`: Other changes that don't modify `src` or `test` files (其他不修改源文件或测试文件的更改，如更新构建任务、包管理器配置等)
+  - `revert`: Reverts a previous commit (回滚提交)
+- **`optional scope` (可选范围)**: 括号内，表示提交影响的范围/模块，例如 `feat(parser): add ability to parse arrays`。
+- **`description` (描述)**: 简短的提交描述，使用祈使句，现在时态，首字母小写。
+- **`optional body` (可选正文)**: 更详细的解释性文字，可以包含动机、与之前行为的对比等。
+- **`optional footer(s)` (可选脚注)**:
+  - **Breaking Changes (破坏性变更)**: 以 `BREAKING CHANGE:` 开头，后跟描述。或者在 `type(scope)!:` 中使用 `!` 表示。
+  - **Issue tracking IDs**: 例如 `Closes #123`, `Fixes #456`。
+
+**使用特定前缀（遵循 Conventional Commits）的好处：**
+
+1.  **自动化生成 CHANGELOGS**:
+
+    - 这是最显著的好处之一。工具（如 `conventional-changelog`）可以根据这些结构化的提交消息自动生成项目变更日志。例如，`feat` 类型的提交会列在新功能部分，`fix` 类型的提交会列在 Bug 修复部分。
+
+2.  **自动化语义化版本控制 (Semantic Versioning - SemVer)**:
+
+    - 根据提交的类型，可以自动确定下一个版本号：
+      - 包含 `BREAKING CHANGE` (或 `type!`) 的提交 -> **MAJOR** 版本升级 (例如 1.x.x -> 2.0.0)
+      - `feat` 类型的提交 -> **MINOR** 版本升级 (例如 1.0.x -> 1.1.0)
+      - `fix` 类型的提交 -> **PATCH** 版本升级 (例如 1.0.0 -> 1.0.1)
+      - 其他类型如 `docs`, `style`, `refactor`, `test`, `chore` 等通常不触发版本升级，除非它们包含 `BREAKING CHANGE`。
+
+3.  **提高提交历史的可读性和可维护性**:
+
+    - 快速浏览提交历史（`git log`）时，前缀能让你一眼看出每次提交的主要目的。
+    - 这使得查找特定类型的更改（例如，只看所有的新功能或所有的 bug 修复）变得更加容易。
+
+4.  **简化团队协作和沟通**:
+
+    - 为团队提供了一套共享的提交语言，减少了沟通成本和歧义。
+    - 代码审查者可以更快地理解提交的意图和影响范围。
+
+5.  **更容易地进行代码回溯和问题定位**:
+
+    - 当出现问题时，结构化的提交历史可以帮助更快地定位引入问题的提交。例如，如果一个功能出错了，可以重点关注 `feat` 和 `fix` 相关的提交。
+
+6.  **触发构建和部署流程**:
+
+    - CI/CD 系统可以根据提交消息的类型或范围来触发特定的构建、测试或部署流程。例如，只有 `feat` 或 `fix` 类型的提交才触发生产部署。
+
+7.  **与其他工具的集成**:
+    - 许多现代开发工具和平台（如 GitLab, GitHub, Jira 等）可以更好地解析和利用这种结构化的提交信息。
+
+**示例：**
+
+- 修复了一个 bug: `fix: correct minor typos in code`
+- 增加了一个新功能，并指明了范围: `feat(lang): add Polish language`
+- 文档修改: `docs: explain foo_bar function in README`
+- 一个包含破坏性变更的重构:
+
+  ```
+  refactor!: drop support for Node 6
+
+  BREAKING CHANGE: The `foo()` method now requires a new parameter `bar`.
+  ```
